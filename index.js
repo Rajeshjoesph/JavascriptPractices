@@ -1,17 +1,28 @@
-const prompt = require('prompt-sync')();
+const prompt=require('prompt-sync')();
+const fs=require('fs');
+writeData=require("./inventory");
 
-// declear array
-const array=[];
+let Pcode=prompt("Enter PCode:");
+let Desc=prompt("Enter Descripation:");
+let Category=prompt("Enter Category:");
+let Mrp=prompt("Enter MRP:");
+let Upc=prompt("Enter Upc:");
 
-console.log("Enter the array length:");
-// array length
-let length=prompt();
+var json={
+    "Pcode":Pcode,
+    "Desc":Desc,
+    "Category":Category,
+    "Mrp":Mrp,
+    "Upc":Upc
+};
 
-console.log("Enter the array Data:");
+writeData.push(json);
 
-for(let i=0;i<=length;i++){
-    array[i]=prompt();
-}
+let obj=JSON.stringify(writeData);
 
-console.log(array);
+fs.writeFileSync("inventory.json",obj);
 
+let output=fs.readFileSync('inventory.json');
+
+let data=JSON.parse(output);
+console.log(data);
