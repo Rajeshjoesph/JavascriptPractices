@@ -7,11 +7,9 @@ console.log("1 - Inventory entiers:");
 console.log("2 - Display inventory:");
 console.log("3 - Search by Category:");
 let process=parseFloat( prompt("Enter the Operation as Press " ));
-
 switch (process) {
-    case 1 :
-        let input;
-        do{
+    case 1:
+        function inventory() {
             let Pcode=prompt("Enter PCode:");
             let Desc=prompt("Enter Descripation:");
             let Category=prompt("Enter Category:");
@@ -30,20 +28,26 @@ switch (process) {
             obj=JSON.stringify(writeData);
             fs.writeFileSync("inventory.json",obj);
         
-            input=parseFloat(prompt("IF you want enter data, Press 8 ,Then  Exist Press 9:"));
+            input=parseInt( prompt("IF you want enter data, Press 1 ,Then  Exist Press 0:"));
+    
         }
-        while ( input == 9  ) {
-        
-            console.log("Inventory data is Added");
-        }
+        inventory()
+            
+            if (input == 0) {
+                console.log("Inventory data is Added");
+                return false;
+            }else{
+                inventory()
+            }
         break;
     case 2:
         let output=fs.readFileSync('inventory.json');
-        
+    
         let data=JSON.parse(output);
     
         console.table(data);
         break;
+
 
     case 3:
         console.log("1.Pcode");
@@ -89,9 +93,13 @@ switch (process) {
             console.log("Enter the filter data");
         }
         break;
+
     default:
         console.log("enter the values");
         break;
 }
+
+
+
 
 
